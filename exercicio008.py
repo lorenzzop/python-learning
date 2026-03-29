@@ -24,4 +24,4 @@ media = sum(idades) / len(idades)
 for nome in nomes:
     print(f"{nome}")
 
-print ("A média das idades é {}".format(media))
+print ("A média das idades é {:.2f}".format(media))
