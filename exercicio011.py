@@ -1,4 +1,12 @@
-todo = []
+import json
+
+# todo = [] (antigo)
+
+try:
+    with open("tarefas.json", "r") as f: #se o arquivo ja existe, inicia a lista a partir dele
+        todo = json.load(f) #.load serve pra ler
+except:
+    todo = [] #se n existe, inicia vazia
 
 while True:
 
@@ -19,6 +27,11 @@ while True:
                 "tarefa": tarefa,
                 "feito": False
             })
+
+            with open("tarefas.json", "w") as arq: #o with open (...) abre o arquivo no modo escrita (por causa do "w", q apaga o arquivo e reescreve)
+                json.dump(todo, arq) #.dump sempre pra salvar
+
+                #outros termos q podem ser usados alem do "w": "a" (append, adiciona sem apagar) e "r" (de leitura)
         
         case "2":
 
@@ -39,6 +52,9 @@ while True:
                 todo[i-1]['feito'] = True
                 print ("Tarefa {} concluída!".format(i))
 
+            with open("tarefas.json", "w") as arq:
+                json.dump(todo, arq)
+
         case "4":
             i = int(input("Qual tarefa deseja remover? "))
             if (i < 1 or i > len(todo)):
@@ -46,6 +62,9 @@ while True:
             else:
                 todo.pop(i-1)
                 print ("Tarefa {} removida!".format(i))
+
+            with open("tarefas.json", "w") as arq:
+                json.dump(todo, arq)
 
         case "5":
             print("Programa finalizado")
